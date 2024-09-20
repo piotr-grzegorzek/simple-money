@@ -1,7 +1,11 @@
-import { Currency } from "./currency.js";
+import { CurrencyFactory } from "./currency.js";
 import { Money } from "./money.js";
 
-const money1 = new Money("6", new Currency("crypto", 30, "c"));
-const result = money1.dividedBy("999");
+const money2 = new Money("7", CurrencyFactory.EUR());
+const money3 = new Money("6", CurrencyFactory.EUR());
+const money4 = new Money("8", CurrencyFactory.EUR());
 
-console.log(`${result}`);
+console.log(money2.gt(money3));
+console.log(money2.gte(money3));
+console.log(money2.lt(money4));
+console.log(money3.lte(money3));

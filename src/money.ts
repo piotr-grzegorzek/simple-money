@@ -88,6 +88,30 @@ export class Money {
     return new Money(result, this.currency, RoundNow.NO);
   }
 
+  // Is greater
+  gt(other: Money): boolean {
+    this.checkCurrency(other);
+    return this.amount.gt(other.amount);
+  }
+
+  // Is greater or equal
+  gte(other: Money): boolean {
+    this.checkCurrency(other);
+    return this.amount.gte(other.amount);
+  }
+
+  // Is less
+  lt(other: Money): boolean {
+    this.checkCurrency(other);
+    return this.amount.lt(other.amount);
+  }
+
+  // Is less or equal
+  lte(other: Money): boolean {
+    this.checkCurrency(other);
+    return this.amount.lte(other.amount);
+  }
+
   // Ensure the two money objects have the same currency
   private checkCurrency(other: Money) {
     if (this.currency.code !== other.currency.code) {
