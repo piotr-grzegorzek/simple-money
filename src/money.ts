@@ -8,12 +8,23 @@ export enum ToFixed {
   NO,
 }
 
+// Enum for deciding whether to round input money amount
+export enum RoundNow {
+  YES,
+  NO,
+}
+
 // Money class
 export class Money {
   currency: Currency;
   private amount: BigNumber;
 
-  constructor(amount: string | BigNumber, currency: Currency) {
+  constructor(
+    amount: string | BigNumber,
+    currency: Currency,
+    roundNow: RoundNow = RoundNow.YES,
+    roundingMode: BigNumber.RoundingMode = BigNumber.ROUND_HALF_UP
+  ) {
     this.amount = new BigNumber(amount);
 
     // Ensure the amount is a valid number and not NaN/Infinity
@@ -23,7 +34,11 @@ export class Money {
       );
     }
 
-    this.amount = this.amount.decimalPlaces(currency.precision);
+    // Round the amount if needed
+    if (roundNow === RoundNow.YES) {
+      this.amount = this.amount.decimalPlaces(currency.precision, roundingMode);
+    }
+
     this.currency = currency;
   }
 
@@ -39,14 +54,14 @@ export class Money {
   add(other: Money): Money {
     this.checkCurrency(other);
     const result = this.amount.plus(other.amount);
-    return new Money(result, this.currency);
+    return new Money(result, this.currency, RoundNow.NO);
   }
 
   // Subtraction
   subtract(other: Money): Money {
     this.checkCurrency(other);
     const result = this.amount.minus(other.amount);
-    return new Money(result, this.currency);
+    return new Money(result, this.currency, RoundNow.NO);
   }
 
   // Multiplication
@@ -57,7 +72,7 @@ export class Money {
     const result = this.amount
       .times(multiplier)
       .decimalPlaces(this.currency.precision, roundingMode);
-    return new Money(result, this.currency);
+    return new Money(result, this.currency, RoundNow.NO);
   }
 
   // Division
@@ -70,7 +85,7 @@ export class Money {
       roundingMode,
       this.currency.precision
     );
-    return new Money(result, this.currency);
+    return new Money(result, this.currency, RoundNow.NO);
   }
 
   // Ensure the two money objects have the same currency
