@@ -51,21 +51,21 @@ export class Money {
   }
 
   // Addition
-  add(other: Money): Money {
+  plus(other: Money): Money {
     this.checkCurrency(other);
     const result = this.amount.plus(other.amount);
     return new Money(result, this.currency, RoundNow.NO);
   }
 
   // Subtraction
-  subtract(other: Money): Money {
+  minus(other: Money): Money {
     this.checkCurrency(other);
     const result = this.amount.minus(other.amount);
     return new Money(result, this.currency, RoundNow.NO);
   }
 
   // Multiplication
-  multiply(
+  times(
     multiplier: string,
     roundingMode: BigNumber.RoundingMode = BigNumber.ROUND_HALF_UP
   ): Money {
@@ -76,7 +76,7 @@ export class Money {
   }
 
   // Division
-  divide(
+  dividedBy(
     divisor: string,
     roundingMode: BigNumber.RoundingMode = BigNumber.ROUND_HALF_UP
   ): Money {
