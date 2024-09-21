@@ -20,7 +20,7 @@ export class Money {
   private amount: BigNumber;
 
   constructor(
-    amount: string | BigNumber,
+    amount: number | string | BigNumber,
     currency: Currency,
     roundNow: RoundNow = RoundNow.YES,
     roundingMode: BigNumber.RoundingMode = BigNumber.ROUND_HALF_UP
@@ -66,7 +66,7 @@ export class Money {
 
   // Multiplication
   times(
-    multiplier: string,
+    multiplier: number | string,
     roundingMode: BigNumber.RoundingMode = BigNumber.ROUND_HALF_UP
   ): Money {
     const result = this.amount
@@ -77,7 +77,7 @@ export class Money {
 
   // Division
   dividedBy(
-    divisor: string,
+    divisor: number | string,
     roundingMode: BigNumber.RoundingMode = BigNumber.ROUND_HALF_UP
   ): Money {
     const result = this.performWithSettings(
