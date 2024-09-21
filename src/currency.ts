@@ -8,7 +8,7 @@ export class Currency {
 }
 
 // Factory class for creating currency objects
-export abstract class CurrencyFactory {
+export abstract class Currencies {
   static USD(): Currency {
     return new Currency("USD", 2, "$");
   }
